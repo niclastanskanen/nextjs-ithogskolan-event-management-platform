@@ -1,5 +1,9 @@
+import { Suspense } from "react";
+
 import { getEvents } from "@/lib/api";
+
 import EventItem from "./EventItem";
+import LoadingSpinner from "./LoadingSpinner";
 
 const EventList = async () => {
   const events = await getEvents();
@@ -18,7 +22,9 @@ const EventList = async () => {
   return (
     <div className="space-y-6">
       {events.map((event) => (
-        <EventItem key={event.id} event={event} />
+        <Suspense key={event.id} fallback={<LoadingSpinner />}>
+          <EventItem key={event.id} event={event} />
+        </Suspense>
       ))}
     </div>
   );
