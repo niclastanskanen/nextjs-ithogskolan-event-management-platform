@@ -5,8 +5,13 @@ import { getEvents } from "@/lib/api";
 import EventItem from "./EventItem";
 import LoadingSpinner from "./LoadingSpinner";
 
-const EventList = async () => {
-  const events = await getEvents();
+interface EventListProps {
+  searchParams: { q?: string; date?: string };
+}
+
+const EventList = async ({ searchParams }: EventListProps) => {
+  const { q = "", date = "" } = searchParams;
+  const events = await getEvents(q, date);
 
   if (!events.length) {
     return (
