@@ -1,4 +1,8 @@
+import { Suspense } from "react";
+
+import CalendarView from "@/components/CalendarView";
 import EventList from "@/components/EventList";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import SearchBar from "@/components/SearchBar";
 
 export default function Home() {
@@ -17,9 +21,13 @@ export default function Home() {
         <SearchBar />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
-            <EventList />
+            <Suspense fallback={<LoadingSpinner />}>
+              <EventList />
+            </Suspense>
           </div>
-          <div className="hidden lg:block">Calendar</div>
+          <div className="hidden lg:block">
+            <CalendarView />
+          </div>
         </div>
       </section>
     </div>
