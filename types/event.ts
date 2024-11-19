@@ -5,9 +5,14 @@ export interface Event {
   date: string;
   location: string;
   image?: string;
-  attendees: number;
   organizer: {
     name: string;
     email: string;
+  };
+  url?: string;
+  priceRange?: {
+    min: number;
+    max: number;
+    currency: string;
   };
 }
