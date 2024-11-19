@@ -1,3 +1,4 @@
+import EventList from "@/components/EventList";
 import SearchBar from "@/components/SearchBar";
 
 export default function Home() {
@@ -15,7 +16,9 @@ export default function Home() {
         </div>
         <SearchBar />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">Eventlist</div>
+          <div className="lg:col-span-2">
+            <EventList />
+          </div>
           <div className="hidden lg:block">Calendar</div>
         </div>
       </section>
