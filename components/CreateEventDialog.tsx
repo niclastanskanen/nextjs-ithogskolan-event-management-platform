@@ -28,11 +28,20 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
-  title: z.string().min(2).max(100),
-  description: z.string().min(10).max(1000),
+  title: z
+    .string()
+    .min(2, "Title must have at least 2 characters")
+    .max(100, "Title cannot exceed 100 characters"),
+  description: z
+    .string()
+    .min(10, "Description should be more detailed (at least 10 characters)")
+    .max(1000, "Description is too long (maximum 1000 characters)"),
   date: z.date(),
-  location: z.string().min(2).max(100),
-  image: z.string().url().optional(),
+  location: z
+    .string()
+    .min(2, "Location must have at least 2 characters")
+    .max(100, "Location cannot exceed 100 characters"),
+  image: z.string().url("Please enter a valid URL").optional(),
 });
 
 interface CreateEventDialogProps {
@@ -91,6 +100,7 @@ const CreateEventDialog = ({ open, onOpenChange }: CreateEventDialogProps) => {
                   <FormControl>
                     <Input placeholder="Event title" {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
