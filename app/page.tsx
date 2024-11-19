@@ -5,7 +5,11 @@ import EventList from "@/components/EventList";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import SearchBar from "@/components/SearchBar";
 
-export default function Home() {
+export default function Home({
+  searchParams,
+}: {
+  searchParams: { q?: string; date?: string };
+}) {
   return (
     <div className="container mx-auto px-4 py-8">
       <section className="space-y-6">
@@ -22,7 +26,7 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <Suspense fallback={<LoadingSpinner />}>
-              <EventList />
+              <EventList searchParams={searchParams} />
             </Suspense>
           </div>
           <div className="hidden lg:block">
