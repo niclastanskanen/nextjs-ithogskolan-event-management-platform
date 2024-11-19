@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Calendar, Moon, PlusCircle, Sun } from "lucide-react";
+
+import CreateEventDialog from "./CreateEventDialog";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +18,8 @@ import {
 
 const Header = () => {
   const { setTheme, theme } = useTheme();
+  const [showCreateEvent, setShowCreateEvent] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center mx-8">
@@ -52,10 +57,14 @@ const Header = () => {
             <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             <span className="sr-only">Toggle theme</span>
           </Button>
-          <Button>
+          <Button onClick={() => setShowCreateEvent(true)}>
             <PlusCircle className="mr-2 h-4 w-4" />
             Create Event
           </Button>
+          <CreateEventDialog
+            open={showCreateEvent}
+            onOpenChange={setShowCreateEvent}
+          />
         </div>
       </div>
     </header>
