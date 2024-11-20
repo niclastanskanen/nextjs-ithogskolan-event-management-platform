@@ -27,7 +27,7 @@ const MonthlyCalendar = () => {
         const monthData = await getEvents(
           "",
           start.toISOString().split("T")[0],
-          ""
+          end.toISOString().split("T")[0]
         );
         const eventCounts: Record<string, number> = {};
         monthData.forEach((event) => {
