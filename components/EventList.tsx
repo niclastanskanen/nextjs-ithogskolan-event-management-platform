@@ -6,12 +6,12 @@ import EventItem from "./EventItem";
 import LoadingSpinner from "./LoadingSpinner";
 
 interface EventListProps {
-  searchParams: { q?: string; date?: string };
+  searchParams: { q?: string; date?: string; category?: string };
 }
 
 const EventList = async ({ searchParams }: EventListProps) => {
-  const { q = "", date = "" } = searchParams;
-  const events = await getEvents(q, date);
+  const { q = "", date = "", category = "" } = searchParams;
+  const events = await getEvents(q, date, category);
 
   if (!events.length) {
     return (
