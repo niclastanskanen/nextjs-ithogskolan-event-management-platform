@@ -33,11 +33,15 @@ const EventsPageContent = () => {
           Discover upcoming events and find your next experience
         </p>
       </div>
-      <SearchBar />
-      <EventCategories
-        selectedCategory={category}
-        onCategoryChange={handleCategoryChange}
-      />
+      <Suspense fallback={<LoadingSpinner />}>
+        <SearchBar />
+      </Suspense>
+      <Suspense fallback={<LoadingSpinner />}>
+        <EventCategories
+          selectedCategory={category}
+          onCategoryChange={handleCategoryChange}
+        />
+      </Suspense>
       <Suspense fallback={<LoadingSpinner />}>
         <EventList
           searchParams={{

@@ -32,7 +32,9 @@ export default function Home({
             </Suspense>
           </div>
           <div className="hidden lg:block">
-            <CalendarView />
+            <Suspense fallback={<LoadingSpinner />}>
+              <CalendarView />
+            </Suspense>
           </div>
         </div>
       </section>
