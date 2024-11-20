@@ -16,6 +16,15 @@
   </div>
 </div>
 
+## Lighthouse Results
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/XJYgbkn/Screenshot-2024-11-20-at-10-41-32.png" alt="Screenshot-2024-11-20-at-10-41-32" border="0"></a>
+
+- **Performance**: 100
+- **Accessibility**: 99
+- **Best Practices**: 100
+- **SEO**: 100
+
 ## Table of Contents
 
 - [Introduction](#introduction)
