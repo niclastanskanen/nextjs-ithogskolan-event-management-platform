@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import { Calendar } from "@/components/ui/calendar";
@@ -12,7 +13,21 @@ import {
 } from "@/components/ui/card";
 
 const CalendarView = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [date, setDate] = useState<Date | undefined>(
+    searchParams.get("date") ? new Date(searchParams.get("date")!) : new Date()
+  );
+
+  const handleDateSelect = (newDate: Date | undefined) => {
+    setDate(newDate);
+
+    if (newDate) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("date", newDate.toISOString().split("T")[0]);
+      router.push(`/?${params.toString()}`);
+    }
+  };
 
   return (
     <Card>
@@ -24,7 +39,7 @@ const CalendarView = () => {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={handleDateSelect}
           className="rounded-md border"
         />
       </CardContent>
