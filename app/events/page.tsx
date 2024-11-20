@@ -1,14 +1,28 @@
-import { Suspense } from "react";
+"use client";
 
+import React, { Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import EventCategories from "@/components/EventCategories";
 import EventList from "@/components/EventList";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import SearchBar from "@/components/SearchBar";
 
-export default function EventsPage({
-  searchParams,
-}: {
-  searchParams: { q?: string; date?: string };
-}) {
+const EventsPage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category") || "";
+
+  const handleCategoryChange = (newCategory: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (newCategory) {
+      params.set("category", newCategory);
+    } else {
+      params.delete("category");
+    }
+    router.push(`/events?${params.toString()}`);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <section className="space-y-6">
@@ -21,10 +35,22 @@ export default function EventsPage({
           </p>
         </div>
         <SearchBar />
+        <EventCategories
+          selectedCategory={category}
+          onCategoryChange={handleCategoryChange}
+        />
         <Suspense fallback={<LoadingSpinner />}>
-          <EventList searchParams={searchParams} />
+          <EventList
+            searchParams={{
+              q: searchParams.get("q") || "",
+              date: searchParams.get("date") || "",
+              category: category,
+            }}
+          />
         </Suspense>
       </section>
     </div>
   );
-}
+};
+
+export default EventsPage;
