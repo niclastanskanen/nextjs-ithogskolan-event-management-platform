@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import EventCategories from "@/components/EventCategories";
 import EventList from "@/components/EventList";
 import SearchBar from "@/components/SearchBar";
+import LoadingSpinner from "./LoadingSpinner";
 
 const EventsPageContent = () => {
   const router = useRouter();
@@ -37,13 +38,15 @@ const EventsPageContent = () => {
         selectedCategory={category}
         onCategoryChange={handleCategoryChange}
       />
-      <EventList
-        searchParams={{
-          q: searchParams.get("q") || "",
-          date: searchParams.get("date") || "",
-          category: category,
-        }}
-      />
+      <Suspense fallback={<LoadingSpinner />}>
+        <EventList
+          searchParams={{
+            q: searchParams.get("q") || "",
+            date: searchParams.get("date") || "",
+            category: category,
+          }}
+        />
+      </Suspense>
     </section>
   );
 };
