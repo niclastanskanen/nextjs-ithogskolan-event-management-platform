@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Event, EventDetails } from "@/types/event";
+import { TicketmasterEvent, TicketmasterPrice } from "@/types/ticketmaster";
 
 const BASE_URL = "https://app.ticketmaster.com/discovery/v2";
 
@@ -40,7 +41,7 @@ export async function getEvents(
       return [];
     }
 
-    return data._embedded.events.map((event: any) => ({
+    return data._embedded.events.map((event: TicketmasterEvent) => ({
       id: event.id,
       title: event.name,
       description:
@@ -116,7 +117,7 @@ export async function getEventDetails(
       startTime: event.dates.start.localTime,
       status: event.dates.status?.code,
       timezone: event.dates.timezone,
-      priceRanges: event.priceRanges?.map((price: any) => ({
+      priceRanges: event.priceRanges?.map((price: TicketmasterPrice) => ({
         type: price.type,
         currency: price.currency,
         min: price.min,
