@@ -5,7 +5,8 @@ const BASE_URL = "https://app.ticketmaster.com/discovery/v2";
 
 export async function getEvents(
   keyword?: string,
-  startDate?: string
+  startDate?: string,
+  segmentId?: string
 ): Promise<Event[]> {
   try {
     const TICKETMASTER_API_KEY = process.env.NEXT_PUBLIC_TICKETMASTER_API_KEY;
@@ -22,7 +23,16 @@ export async function getEvents(
     };
 
     if (keyword) params.keyword = keyword;
-    if (startDate) params.startDateTime = `${startDate}T00:00:00Z`;
+    if (startDate) {
+      // Format the date as required by Ticketmaster API: YYYY-MM-DDTHH:mm:ssZ
+      const formattedDate = `${startDate}T00:00:00Z`;
+      params.startDateTime = formattedDate;
+      // Add endDateTime to get events only for the selected date
+      const nextDay = new Date(startDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      params.endDateTime = `${nextDay.toISOString().split("T")[0]}T00:00:00Z`;
+    }
+    if (segmentId) params.segmentId = segmentId;
 
     const { data } = await axios.get(`${BASE_URL}/events.json`, { params });
 
