@@ -72,6 +72,7 @@ const CreateEventDialog = ({ open, onOpenChange }: CreateEventDialogProps) => {
       onOpenChange(false);
       form.reset();
     } catch (error) {
+      console.log(error)
       toast({
         variant: "destructive",
         title: "Error",

@@ -48,7 +48,6 @@ interface RSVPDialogProps {
 const RSVPDialog = ({
   open,
   onOpenChange,
-  eventId,
   eventTitle,
 }: RSVPDialogProps) => {
   const { toast } = useToast();
@@ -73,6 +72,7 @@ const RSVPDialog = ({
       onOpenChange(false);
       form.reset();
     } catch (error) {
+      console.log(error)
       toast({
         variant: "destructive",
         title: "Error",
