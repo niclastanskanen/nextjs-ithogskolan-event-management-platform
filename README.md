@@ -25,6 +25,10 @@
 - **Best Practices**: 100
 - **SEO**: 100
 
+## Jest Test
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/Vvv6d4s/Screenshot-2024-11-25-at-12-30-45.png" alt="Screenshot-2024-11-25-at-12-30-45" border="0"></a><br />
+
 ## Table of Contents
 
 - [Introduction](#introduction)
